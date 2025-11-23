@@ -1,0 +1,48 @@
+#define BLYNK_TEMPLATE_ID "TMPL3V6jK8XOi"
+#define BLYNK_TEMPLATE_NAME "Shreyash"
+#define BLYNK_AUTH_TOKEN "pVrvg3XnqL3eYm3kKsO2iCpGiyaL7Lt_"
+
+#define BLYNK_PRINT Serial
+#include <WiFi.h>
+#include <BlynkSimpleEsp32.h>
+
+#define R1 5
+#define R2 18
+#define R3 19
+#define R4 23
+
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "FTTH";
+char pass[] = "Shreyash3921@";
+
+void setRelay(int value, int pin) {
+  digitalWrite(pin, value ? LOW : HIGH);
+}
+
+// Relay 1
+BLYNK_WRITE(V1) { setRelay(param.asInt(), R1); }
+// Relay 2
+BLYNK_WRITE(V2) { setRelay(param.asInt(), R2); }
+// Relay 3
+BLYNK_WRITE(V3) { setRelay(param.asInt(), R3); }
+// Relay 4
+BLYNK_WRITE(V4) { setRelay(param.asInt(), R4); }
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(R1, OUTPUT);
+  pinMode(R2, OUTPUT);
+  pinMode(R3, OUTPUT);
+  pinMode(R4, OUTPUT);
+
+  digitalWrite(R1, HIGH);
+  digitalWrite(R2, HIGH);
+  digitalWrite(R3, HIGH);
+  digitalWrite(R4, HIGH);
+
+  Blynk.begin(auth, ssid, pass);
+}
+
+void loop() {
+  Blynk.run();
+}

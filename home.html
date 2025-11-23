@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shreyash ESP32 Relay Control</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; background-color: #f5f5f5; }
+    h1 { color: #333; }
+    .relay { margin: 20px; padding: 20px; display: inline-block; background-color: #fff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    button { width: 100px; height: 40px; margin: 5px; font-size: 16px; cursor: pointer; border: none; border-radius: 5px; }
+    .on { background-color: #4CAF50; color: white; }
+    .off { background-color: #f44336; color: white; }
+  </style>
+</head>
+<body>
+  <h1>Shreyash ESP32 Relay Control</h1>
+
+  <div class="relay">
+    <h2>Relay 1 (GPIO 5)</h2>
+    <button class="on" onclick="toggleRelay(1,1)">ON</button>
+    <button class="off" onclick="toggleRelay(1,0)">OFF</button>
+  </div>
+
+  <div class="relay">
+    <h2>Relay 2 (GPIO 18)</h2>
+    <button class="on" onclick="toggleRelay(2,1)">ON</button>
+    <button class="off" onclick="toggleRelay(2,0)">OFF</button>
+  </div>
+
+  <div class="relay">
+    <h2>Relay 3 (GPIO 19)</h2>
+    <button class="on" onclick="toggleRelay(3,1)">ON</button>
+    <button class="off" onclick="toggleRelay(3,0)">OFF</button>
+  </div>
+
+  <div class="relay">
+    <h2>Relay 4 (GPIO 23)</h2>
+    <button class="on" onclick="toggleRelay(4,1)">ON</button>
+    <button class="off" onclick="toggleRelay(4,0)">OFF</button>
+  </div>
+
+  <script>
+    const authToken = "pVrvg3XnqL3eYm3kKsO2iCpGiyaL7Lt_"; // From your ESP32 code
+
+    function toggleRelay(pin, value) {
+      fetch(`https://blynk.cloud/external/api/update?token=${authToken}&V${pin}=${value}`)
+        .then(response => response.text())
+        .then(data => console.log(`Relay V${pin} set to ${value}: ${data}`))
+        .catch(err => console.error(err));
+    }
+  </script>
+</body>
+</html>
